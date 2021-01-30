@@ -1,7 +1,7 @@
 # TravelTipsBot
 Telegram Bot with tips for travelers
 
-Before starting run `database.sql` in your Postres database.
+Before starting run `src/main/resources/database.sql` in your Postres database.
 
 Telegram token for this bot:
 ```
