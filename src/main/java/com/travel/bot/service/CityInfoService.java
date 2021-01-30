@@ -2,11 +2,11 @@ package com.travel.bot.service;
 
 import com.travel.bot.model.CityInfo;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface CityInfoService {
 
-    Optional<CityInfo> getCityInfo(String cityName);
+    List<CityInfo> getCityInfo(String cityName);
 
     void deleteCityInfo(String cityName);
 

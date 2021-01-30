@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @Component
 @Transactional
@@ -19,7 +19,7 @@ public class MyCityInfoService implements CityInfoService {
         this.cityInfoRepository = cityInfoRepository;
     }
 
-    public Optional<CityInfo> getCityInfo(String cityName){
+    public List<CityInfo> getCityInfo(String cityName){
         return cityInfoRepository.findCityInfoByName(cityName);
     }
 
@@ -33,6 +33,8 @@ public class MyCityInfoService implements CityInfoService {
 
     public CityInfo updateCityInfo(CityInfo cityInfo){
         CityInfo newCityInfo = cityInfoRepository.findCityInfoByName(cityInfo.getName())
+                .stream()
+                .findFirst()
                 .map(city -> {
                     city.setDescription(cityInfo.getDescription());
                     return city;

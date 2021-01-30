@@ -1,7 +1,7 @@
 package com.travel.bot.controller;
 
 import com.travel.bot.model.CityInfo;
-import com.travel.bot.service.MyCityInfoService;
+import com.travel.bot.service.CityInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,33 +10,35 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/city")
 public class CityInfoController {
 
-
-    private final MyCityInfoService service;
+    private final CityInfoService service;
 
     @Autowired
-    public CityInfoController(MyCityInfoService service) {
+    public CityInfoController(CityInfoService service) {
         this.service = service;
     }
 
     @GetMapping(path = "/info/{cityName}")
-    public ResponseEntity<CityInfo> getCityInfo(@PathVariable("cityName") String cityName){
-        return service.getCityInfo(cityName).map(cityInfo -> ResponseEntity.ok(cityInfo))
-        .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<CityInfo> getCityInfo(@PathVariable("cityName") String cityName) {
+        return service.getCityInfo(cityName)
+                .stream()
+                .findFirst()
+                .map(cityInfo -> ResponseEntity.ok(cityInfo))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping(path = "/info/{cityName}")
-    public ResponseEntity<?> deleteCityInfo(@PathVariable("cityName") String cityName){
+    public ResponseEntity<?> deleteCityInfo(@PathVariable("cityName") String cityName) {
         service.deleteCityInfo(cityName);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping(path = "/info")
-    public ResponseEntity<?> getCityInfo(@RequestBody CityInfo cityInfo){
+    public ResponseEntity<?> getCityInfo(@RequestBody CityInfo cityInfo) {
         return ResponseEntity.ok(service.saveCityInfo(cityInfo));
     }
 
     @PutMapping(path = "/info")
-    public ResponseEntity<?> updateCityInfo(@RequestBody CityInfo cityInfo){
+    public ResponseEntity<?> updateCityInfo(@RequestBody CityInfo cityInfo) {
         return ResponseEntity.ok(service.updateCityInfo(cityInfo));
     }
 
