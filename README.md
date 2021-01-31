@@ -1,7 +1,13 @@
 # TravelTipsBot
 Telegram Bot with tips for travelers
 
-Before starting run `src/main/resources/database.sql` in your Postres database.
+Before starting run `src/main/resources/database.sql` in your Postres database. 
+Set/Change username, password and url( if requires) in `src/main/resources/application.properties`:
+```
+spring.datasource.url=jdbc:postgresql://localhost:5432/travel
+spring.datasource.username=
+spring.datasource.password=
+```
 
 Telegram token for this bot:
 ```
